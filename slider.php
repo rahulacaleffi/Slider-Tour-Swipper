@@ -1,15 +1,16 @@
 
+<link rel="stylesheet" href="<?php echo get_template_directory_uri();?>/Slider-Tour-Swipper/assets/css-slider-travel.css">
 <link rel="modulepreload" href="<?php echo get_template_directory_uri();?>/Slider-Tour-Swipper/assets/module-preload.js">
 <script type="module" crossorigin src="<?php echo get_template_directory_uri();?>/Slider-Tour-Swipper/assets/module-slider.js"></script>
 <style>
     .swiper{
-        height:400px;
+        height:400px !important;
     }
 </style>
 <!-- Slider main container -->
 <div class="travel-slider">
-  <div class="travel-slider-planet" style="transform: translate(-50%, -50%) rotate(0deg); transition-duration: 0ms;">
-        <img src="wp-content/themes/twentytwentytwo/Slider-Tour-Swipper/assets/images/3909361.png">
+  <div class="travel-slider-planet" style="transform: translate(-50%, -50%) rotate(0deg); transition-duration: 0ms;width:100%">
+        <img src="<?php echo get_template_directory_uri();?>/Slider-Tour-Swipper/assets/images/3909361.png">
         <!-- <div class="travel-slider-cities travel-slider-cities-8">
           <img src="images/usa.svg">
           <img src="images/england.svg">
@@ -23,62 +24,31 @@
   </div>
   <div class="swiper">
         <div class="swiper-wrapper" >
-          <div class="swiper-slide swiper-slide-visible swiper-slide-active" style="margin-right: 64px;">
-            <img src="wp-content/themes/twentytwentytwo/Slider-Tour-Swipper/assets/images/usa.jpg" class="travel-slider-bg-image">
-            <div class="travel-slider-content">
-              <div class="travel-slider-title">United States</div>
-              <div class="travel-slider-subtitle">8,295 properties</div>
-            </div>
-          </div>
-          <div class="swiper-slide swiper-slide-visible swiper-slide-next" style="margin-right: 64px;">
-            <img src="wp-content/themes/twentytwentytwo/Slider-Tour-Swipper/assets/images/england.jpg" class="travel-slider-bg-image">
-            <div class="travel-slider-content">
-              <div class="travel-slider-title">England</div>
-              <div class="travel-slider-subtitle">1,110 properties</div>
-            </div>
-          </div>
-          <div class="swiper-slide" style="margin-right: 64px;">
-            <img src="wp-content/themes/twentytwentytwo/Slider-Tour-Swipper/assets/images/france.jpg" class="travel-slider-bg-image">
-            <div class="travel-slider-content">
-              <div class="travel-slider-title">France</div>
-              <div class="travel-slider-subtitle">314 properties</div>
-            </div>
-          </div>
-          <div class="swiper-slide" style="margin-right: 64px;">
-            <img src="wp-content/themes/twentytwentytwo/Slider-Tour-Swipper/assets/images/italy.jpg" class="travel-slider-bg-image">
-            <div class="travel-slider-content">
-              <div class="travel-slider-title">Italy</div>
-              <div class="travel-slider-subtitle">1,200 properties</div>
-            </div>
-          </div>
-          <div class="swiper-slide" style="margin-right: 64px;">
-            <img src="wp-content/themes/twentytwentytwo/Slider-Tour-Swipper/assets/images/russia.jpg" class="travel-slider-bg-image">
-            <div class="travel-slider-content">
-              <div class="travel-slider-title">Russia</div>
-              <div class="travel-slider-subtitle">12,231 properties</div>
-            </div>
-          </div>
-          <div class="swiper-slide" style="margin-right: 64px;">
-            <img src="wp-content/themes/twentytwentytwo/Slider-Tour-Swipper/assets/images/egypt.jpg" class="travel-slider-bg-image">
-            <div class="travel-slider-content">
-              <div class="travel-slider-title">Egypt</div>
-              <div class="travel-slider-subtitle">505 properties</div>
-            </div>
-          </div>
-          <div class="swiper-slide" style="margin-right: 64px;">
-            <img src="wp-content/themes/twentytwentytwo/Slider-Tour-Swipper/assets/images/india.jpg" class="travel-slider-bg-image">
-            <div class="travel-slider-content">
-              <div class="travel-slider-title">India</div>
-              <div class="travel-slider-subtitle">2,300 properties</div>
-            </div>
-          </div>
-          <div class="swiper-slide" style="margin-right: 64px;">
-            <img src="wp-content/themes/twentytwentytwo/Slider-Tour-Swipper/assets/images/japan.jpg" class="travel-slider-bg-image">
-            <div class="travel-slider-content">
-              <div class="travel-slider-title">Japan</div>
-              <div class="travel-slider-subtitle">1,700 properties</div>
-            </div>
-          </div>
+
+          <?php
+          // configure what type of content and from where directly from dB
+            global $wpdb;
+            $results = $wpdb->get_results("SELECT * FROM `wd_posts` WHERE `post_type` LIKE 'product' AND `post_status` LIKE 'publish'");
+            foreach ($results as $result => $value) {
+              $link = get_the_post_thumbnail_url($value->ID,'full');
+              $name = $value->post_title;
+              ?>
+                <div class="swiper-slide swiper-slide-visible swiper-slide-active" style="margin-right: 64px;">
+                  <a href="<?php echo get_permalink( $value->ID );?>">
+                    <img src="<?php echo $link;?>" class="travel-slider-bg-image">
+                    <div class="travel-slider-content">
+                      <div class="travel-slider-title"><?php echo $name;?></div>
+                      <!-- <div class="travel-slider-subtitle"></div> -->
+                    </div>
+                  </a>
+                </div>
+
+
+              <?php
+                
+            }
+          ?>
+
         </div>
   </div>
 </div>
