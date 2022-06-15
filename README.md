@@ -2,8 +2,7 @@
  Travel Destinations Slider using Swipper JS Core
 
 # Installation
- Just upload the folder 'Slider-Tour-Swipper' into yours active theme root
- Setup functions guide above
+ Just upload the folder 'Slider-Tour-Swipper' into yours active theme root, and setup functions guide above
 
 ## functions.php
 ```
