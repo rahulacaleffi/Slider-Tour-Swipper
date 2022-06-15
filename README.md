@@ -16,6 +16,4 @@
 ```
 
 # Usage
- Use the shortcode [shortcode-slider] everywhere you want
-
-
+ Use the shortcode [shortcode-slider] everywhere you want, but one time per page maximum (avoiding duplicate the JS import files)
